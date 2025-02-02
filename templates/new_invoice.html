@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <h2 class="mb-4">ثبت مشخصات مشتری</h2>
+        <form method="POST" action="{{ url_for('new_invoice') }}">
+            <div class="mb-3">
+                <label class="form-label">نام و نام خانوادگی</label>
+                <input type="text" class="form-control" name="full_name" required>
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">شماره پلاک</label>
+                <input type="text" class="form-control" name="plate_number" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">شماره تماس</label>
+                <input type="tel" class="form-control" name="phone_number" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">رنگ خودرو</label>
+                <input type="text" class="form-control" name="car_color">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">کارکرد کیلومتر</label>
+                <input type="number" class="form-control" name="mileage">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">تاریخ پذیرش</label>
+                <input type="date" class="form-control" name="reception_date" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">تاریخ ورود خودرو</label>
+                <input type="date" class="form-control" name="entry_date" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">نوع و مدل خودرو</label>
+                <input type="text" class="form-control" name="car_model" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">ثبت اطلاعات</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

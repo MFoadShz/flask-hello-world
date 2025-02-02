@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <h2 class="mb-4">جزئیات فاکتور #{{ invoice.id }}</h2>
+        
+        <!-- اطلاعات مشتری -->
+        <div class="card">
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <strong>نام مشتری:</strong> {{ invoice.customer.full_name }}
+                    </div>
+                    <div class="col-md-6">
+                        <strong>شماره تماس:</strong> {{ invoice.customer.phone_number }}
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <strong>شماره پلاک:</strong> {{ invoice.customer.plate_number }}
+                    </div>
+                    <div class="col-md-6">
+                        <strong>مدل خودرو:</strong> {{ invoice.customer.car_model }}
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <strong>رنگ خودرو:</strong> {{ invoice.customer.car_color }}
+                    </div>
+                    <div class="col-md-6">
+                        <strong>کارکرد:</strong> {{ invoice.customer.mileage }} کیلومتر
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <strong>تاریخ پذیرش:</strong> {{ invoice.customer.reception_date.strftime('%Y-%m-%d') }}
+                    </div>
+                    <div class="col-md-6">
+                        <strong>تاریخ ورود:</strong> 
+                        {% if invoice.customer.entry_date %}
+                            {{ invoice.customer.entry_date.strftime('%Y-%m-%d') }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- خدمات انتخاب شده -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5>خدمات انتخاب شده</h5>
+            </div>
+            <div class="card-body">
+                {% if invoice.services %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>نام خدمت</th>
+                            <th>قیمت (تومان)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for service in invoice.services %}
+                        <tr>
+                            <td>{{ service.name }}</td>
+                            <td>{{ "{:,}".format(service.price) }}</td>
+                        </tr>
+                        {% endfor %}
+                        <tr class="table-info">
+                            <td><strong>جمع کل</strong></td>
+                            <td><strong>{{ "{:,}".format(invoice.total_amount) }} تومان</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+                {% else %}
+                <p>هنوز خدمتی انتخاب نشده است.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- دکمه‌های عملیات -->
+        <div class="mt-3">
+            <a href="{{ url_for('invoices') }}" class="btn btn-secondary">بازگشت به لیست</a>
+            <a href="{{ url_for('edit_invoice', id=invoice.id) }}" class="btn btn-warning">ویرایش</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

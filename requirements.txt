@@ -1,2 +1,6 @@
 Flask
 Gunicorn
+Flask-SQLAlchemy
+Flask-WTF
+Flask-Login
+python-dotenv
